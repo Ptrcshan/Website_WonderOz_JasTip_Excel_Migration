@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shipping Form — WonderOz JasTip</title>
+<meta name="description" content="Submit your shipment details to WonderOz JasTip for shipping between Sydney and Indonesia.">
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="style.css?v=3.4">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="nav-logo">
+    <a href="index.html">
+      <img src="logo.png" alt="WonderOz JasTip Logo" style="height:80px;width:auto;">
+    </a>
+  </div>
+  <nav id="mainNav">
+    <a href="index.html">Home</a>
+    <a href="our-service.html">Our Service</a>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="shipping-rates.html">Shipping Rates</a>
+    <a href="news.html">News</a>
+    <a href="index.html#footer-section">Contact Us</a>
+    <a href="ship-form.html" class="nav-cta active">Ship Now</a>
+  </nav>
+  <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="service-hero" style="padding:40px 24px;">
+  <div class="plane-track service-plane-track" aria-hidden="true">
+    <div class="plane-dot dot-au"></div>
+    <div class="flight-path-line"></div>
+    <div class="plane-emoji">✈️</div>
+    <div class="plane-dot dot-id"></div>
+  </div>
+  <h1 style="font-size:26px;">Shipping Form</h1>
+  <p>Fill in your shipment details below and our team will contact you to confirm your order.</p>
+</div>
+
+<div class="main-content" id="form-section">
+  <div class="form-card">
+    <div class="form-card-header">
+      <h2>📦 WonderOz JasTip Shipping Form</h2>
+      <p><span>To ensure we can best assist you, please provide thorough and accurate details. A representative will contact you following your submission. For immediate support, please reach our customer care team at</span>&#160;<a href="https://wa.me/6287722284847" target="_blank" rel="noopener noreferrer" style="white-space:nowrap;display:inline-block;">+62-877-222-TITIP</a>.</p>
+    </div>
+    <div class="form-body">
+      <form id="shipForm" novalidate>
+
+        <!-- SHIPPING ROUTE (explicit, replaces reliance on hero flip toggle) -->
+        <div class="section">
+          <div class="section-title"><span class="dot dot-r"></span> <span>Shipping Route</span></div>
+          <div class="radio-group">
+            <label class="radio-card" id="rc_route_idau" onclick="pickRute('JKT-SYD','rc_route_idau','rc_route_auid')">
+              <input type="radio" name="rute_pengiriman" value="JKT-SYD" required>
+              <div>
+                <div class="rc-label">
+                  <span class="route-country">Indonesia <img src="https://flagcdn.com/w20/id.png" srcset="https://flagcdn.com/w40/id.png 2x" alt="Indonesia" class="route-flag-icon"></span>
+                  <span class="route-arrow">→</span>
+                  <span class="route-country">Australia <img src="https://flagcdn.com/w20/au.png" srcset="https://flagcdn.com/w40/au.png 2x" alt="Australia" class="route-flag-icon"></span>
+                </div>
+                <div class="rc-sub">Sending from Indonesia to Australia</div>
+              </div>
+            </label>
+            <label class="radio-card" id="rc_route_auid" onclick="pickRute('SYD-JKT','rc_route_auid','rc_route_idau')">
+              <input type="radio" name="rute_pengiriman" value="SYD-JKT">
+              <div>
+                <div class="rc-label">
+                  <span class="route-country">Australia <img src="https://flagcdn.com/w20/au.png" srcset="https://flagcdn.com/w40/au.png 2x" alt="Australia" class="route-flag-icon"></span>
+                  <span class="route-arrow">→</span>
+                  <span class="route-country">Indonesia <img src="https://flagcdn.com/w20/id.png" srcset="https://flagcdn.com/w40/id.png 2x" alt="Indonesia" class="route-flag-icon"></span>
+                </div>
+                <div class="rc-sub">Sending from Australia to Indonesia</div>
+              </div>
+            </label>
+          </div>
+          <div class="err-msg" id="err_rute">⚠ Please select your shipping route.</div>
+        </div>
+
+        <!-- CUSTOMER TYPE -->
+        <div class="section">
+          <div class="section-title"><span class="dot dot-g"></span> <span>Sender</span></div>
+          <div class="radio-group">
+            <label class="radio-card" id="rc_new" onclick="pickKategori('New Customer','rc_new','rc_regular')">
+              <input type="radio" name="kategori" value="New Customer" required>
+              <div>
+                <div class="rc-label">🆕 New Customer</div>
+                <div class="rc-sub">First time using WonderOz JasTip</div>
+              </div>
+            </label>
+            <label class="radio-card" id="rc_regular" onclick="pickKategori('Regular Customer','rc_regular','rc_new')">
+              <input type="radio" name="kategori" value="Regular Customer">
+              <div>
+                <div class="rc-label">⭐ Regular Customer</div>
+                <div class="rc-sub">Have used WonderOz JasTip before</div>
+              </div>
+            </label>
+          </div>
+          <div class="err-msg" id="err_kategori">⚠ Please select a customer type.</div>
+        </div>
+
+        <!-- NEW CUSTOMER FIELDS -->
+        <div class="section customer-section" id="newCustomerSection">
+          <div class="section-title"><span class="dot dot-r"></span> <span>Sender</span></div>
+          <div class="grid-2">
+            <div class="field">
+              <label><span>Full Name</span> <span class="req">*</span></label>
+              <input type="text" id="nama_pengirim">
+              <div class="err-msg" id="err_nama_pengirim">⚠ Please enter your name.</div>
+            </div>
+            <div class="field">
+              <label><span>Phone Number</span> <span class="req">*</span></label>
+              <input type="tel" id="telp_pengirim" placeholder="+61412345678">
+              <div class="err-msg" id="err_telp_pengirim">⚠ Please enter your phone number.</div>
+            </div>
+          </div>
+          <div class="field mt">
+            <label><span>Email Address</span> <span class="req">*</span></label>
+            <input type="email" id="email_pengirim" placeholder="username@email.com">
+            <div class="err-msg" id="err_email_pengirim">⚠ Please enter a valid email address.</div>
+          </div>
+        </div>
+
+        <!-- REGULAR CUSTOMER FIELDS -->
+        <div class="section customer-section" id="regularCustomerSection">
+          <div class="section-title"><span class="dot dot-r"></span> <span>Sender</span></div>
+          <div class="grid-2">
+            <div class="field">
+              <label><span>Full Name</span> <span class="req">*</span></label>
+              <input type="text" id="nama_pengirim_regular">
+              <div class="err-msg" id="err_nama_pengirim_regular">⚠ Please enter your name.</div>
+            </div>
+            <div class="field">
+              <label><span>Phone Number</span> <span class="req">*</span></label>
+              <input type="tel" id="telp_pengirim_regular" placeholder="+61412345678">
+              <div class="err-msg" id="err_telp_pengirim_regular">⚠ Please enter your phone number.</div>
+            </div>
+          </div>
+          <div class="field mt">
+            <label><span>Email Address</span> <span class="req">*</span></label>
+            <input type="email" id="email_regular" placeholder="username@email.com">
+            <div class="hint">Use the same email as your previous orders so we can find your history.</div>
+            <div class="err-msg" id="err_email_regular">⚠ Please enter a valid email address.</div>
+          </div>
+        </div>
+
+        <!-- RECIPIENT -->
+        <div class="section">
+          <div class="section-title"><span class="dot dot-g"></span> <span>Recipient</span></div>
+          <div class="grid-2">
+            <div class="field">
+              <label><span>Full Name</span> <span class="req">*</span></label>
+              <input type="text" id="nama_penerima" autocomplete="off">
+              <div class="err-msg" id="err_nama_penerima">⚠ Please enter the recipient's name.</div>
+            </div>
+            <div class="field">
+              <label><span>Phone Number</span> <span class="req">*</span></label>
+              <input type="tel" id="telp_penerima" placeholder="+6281234567890" autocomplete="off">
+              <div class="err-msg" id="err_telp_penerima">⚠ Please enter the recipient's phone number.</div>
+            </div>
+          </div>
+          <div class="field mt">
+            <label><span>Email Address</span> <span class="req">*</span></label>
+            <input type="email" id="email_penerima" placeholder="username@email.com" autocomplete="off">
+            <div class="err-msg" id="err_email_penerima">⚠ Please enter a valid email address.</div>
+          </div>
+          <div class="field mt">
+            <label><span>Full Address</span> <span class="req">*</span></label>
+            <textarea id="alamat_penerima" autocomplete="off"></textarea>
+            <div class="hint">Please include the full address and postcode.</div>
+            <div class="err-msg" id="err_alamat_penerima">⚠ Please enter the recipient's full address.</div>
+          </div>
+        </div>
+
+        <!-- ITEM DESCRIPTION -->
+        <div class="section">
+          <div class="section-title"><span class="dot dot-r"></span> <span>Item Description</span></div>
+          <div class="field">
+            <label><span>What items will you be sending?</span> <span class="req">*</span></label>
+            <textarea id="deskripsi_barang" style="min-height:130px;"></textarea>
+            <div class="hint">Please provide a detailed description including item name, quantity, dimensions, and weight per box.</div>
+            <div class="err-msg" id="err_deskripsi_barang">⚠ Please describe the items you are sending.</div>
+          </div>
+        </div>
+
+        <!-- ITEM CATEGORY -->
+        <div class="section">
+          <div class="section-title"><span class="dot dot-g"></span> <span>Item Category</span></div>
+          <div class="hint" style="margin-bottom:12px;">Check all categories that apply. Multiple selections allowed. <span class="req">*</span></div>
+          <div class="check-grid">
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="jenis_barang" value="Liquid (Non-Alcoholic)"> <span>Liquid (Non-Alcoholic)</span></label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="jenis_barang" value="Liquid (Alcoholic)"> <span>Liquid (Alcoholic)</span></label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="jenis_barang" value="Jewellery or Money"> <span>Jewellery or Money</span></label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="jenis_barang" value="Electronics (No Battery)"> <span>Electronics (No Battery)</span></label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="jenis_barang" value="Electronics (With Battery)"> <span>Electronics (With Battery)</span></label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="jenis_barang" value="Food (Snacks, Dairy, Chocolate, etc.)"> <span>Food (Snacks, Dairy, Chocolate, etc.)</span></label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="jenis_barang" value="Medicine, Vitamins & Supplements"> <span>Medicine, Vitamins &amp; Supplements</span></label>
+            <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="jenis_barang" value="Clothing, Shoes & Accessories"> <span>Clothing, Shoes &amp; Accessories</span></label>
+            <label class="check-item span2" onclick="toggleCheck(this)"><input type="checkbox" name="jenis_barang" value="Pressurised Items"> <span>Pressurised Items</span></label>
+          </div>
+          <div class="err-msg" id="err_jenis_barang">⚠ Please select at least one item category.</div>
+        </div>
+
+        <!-- DECLARATION -->
+        <div class="section">
+          <div class="section-title"><span class="dot dot-r"></span> <span>Declaration &amp; Agreement</span></div>
+          <div class="confirm-otp-note">
+            🔒 This declaration acts as your digital confirmation. By ticking all statements, you acknowledge full responsibility for the contents of your shipment.
+          </div>
+          <div class="hint" style="margin-bottom:12px;">Please tick <b>all</b> statements to confirm. <span class="req">*</span></div>
+          <div class="confirm-list">
+            <label class="confirm-item" onclick="toggleConfirm(this)">
+              <input type="checkbox" name="konfirmasi" value="items_accurate">
+              <span>The items I am sending are as described in this form.</span>
+            </label>
+            <label class="confirm-item" onclick="toggleConfirm(this)">
+              <input type="checkbox" name="konfirmasi" value="aware_regulations">
+              <span>I understand and am aware of the items permitted for shipment in accordance with applicable regulations.</span>
+            </label>
+            <label class="confirm-item" onclick="toggleConfirm(this)">
+              <input type="checkbox" name="konfirmasi" value="no_prohibited">
+              <span>My shipment does not contain any prohibited items (illegal drugs, banned substances, etc.).</span>
+            </label>
+            <label class="confirm-item" onclick="toggleConfirm(this)">
+              <input type="checkbox" name="konfirmasi" value="customs_risk">
+              <span>I am aware of and accept the risk of potential customs delays.</span>
+            </label>
+            <label class="confirm-item" onclick="toggleConfirm(this)">
+              <input type="checkbox" name="konfirmasi" value="volumetric_weight">
+              <span>I understand that shipping costs are calculated based on the higher value between volumetric weight and actual weight.</span>
+            </label>
+          </div>
+          <div class="err-msg" id="err_konfirmasi">⚠ Please tick all declaration statements to proceed.</div>
+        </div>
+
+        <!-- FORBIDDEN ITEMS TRIGGER -->
+        <div class="section forbidden-trigger-section">
+          <p class="forbidden-trigger-instruction">Please review the Forbidden Items by clicking the button below before submitting your request.</p>
+          <button type="button" class="btn-forbidden-trigger" id="btnForbiddenTrigger" onclick="openForbiddenModal()">
+            🚫 <span>Forbidden Items</span>
+          </button>
+          <div class="err-msg" id="err_forbidden">⚠ Please read the Forbidden Items before submitting your request.</div>
+        </div>
+
+        <!-- FORBIDDEN ITEMS MODAL -->
+        <div id="forbiddenModalOverlay" class="forbidden-modal-overlay" onclick="closeForbiddenModal(event)">
+          <div class="forbidden-modal" role="dialog" aria-modal="true" aria-labelledby="forbiddenModalTitle">
+            <button class="forbidden-modal-close" id="btnForbiddenClose" onclick="closeForbiddenModal(null, true)" aria-label="Close">&times;</button>
+            <div class="forbidden-modal-header">
+              <span>🚫</span>
+              <div>
+                <div class="forbidden-inline-title" id="forbiddenModalTitle">Forbidden Items — Please Read Before Submitting</div>
+                <div class="forbidden-inline-sub"><span>The following items are</span> <strong>NOT permitted</strong> <span>to be shipped via WonderOz JasTip</span></div>
+              </div>
+            </div>
+            <div class="forbidden-grid forbidden-modal-grid">
+              <div class="forbidden-item"><div class="fi-img">🔋</div><div class="fi-text">Lithium batteries &amp; Power banks exceeding 160Wh</div></div>
+              <div class="forbidden-item"><div class="fi-img">🛴</div><div class="fi-text">Self-Balancing Devices</div></div>
+              <div class="forbidden-item"><div class="fi-img">🔥</div><div class="fi-text">Butane, Butane tools / refills or Gas Bottles</div></div>
+              <div class="forbidden-item"><div class="fi-img">🪲</div><div class="fi-text">Insect Sprays</div></div>
+              <div class="forbidden-item"><div class="fi-img">🎆</div><div class="fi-text">Flares, Gun / Black powder</div></div>
+              <div class="forbidden-item"><div class="fi-img">🛢️</div><div class="fi-text">Fuel / Petrol, Oil Based Paint</div></div>
+              <div class="forbidden-item"><div class="fi-img">🚗</div><div class="fi-text">Car / Motorbike Batteries</div></div>
+              <div class="forbidden-item"><div class="fi-img">🎇</div><div class="fi-text">Fireworks, Party Poppers</div></div>
+              <div class="forbidden-item"><div class="fi-img">🔥</div><div class="fi-text">"Strike Anywhere" matches, "Blue flame" or "Cigar" lighters</div></div>
+              <div class="forbidden-item"><div class="fi-img">⚡</div><div class="fi-text">Non-Spillable batteries exceeding 12V and 100Wh</div></div>
+              <div class="forbidden-item"><div class="fi-img">🎨</div><div class="fi-text">Paint Stripper, Hydrogen Peroxide</div></div>
+              <div class="forbidden-item"><div class="fi-img">🌶️</div><div class="fi-text">Pepper Spray, Mace</div></div>
+              <div class="forbidden-item"><div class="fi-img">🧴</div><div class="fi-text">Bleach, Oven Cleaner</div></div>
+              <div class="forbidden-item"><div class="fi-img">💨</div><div class="fi-text">Gas Canister exceeding 28g / 50ml</div></div>
+              <div class="forbidden-item"><div class="fi-img">✨</div><div class="fi-text">Sparklers, Firelighters</div></div>
+              <div class="forbidden-item"><div class="fi-img">⚡</div><div class="fi-text">Taser</div></div>
+            </div>
+            <div class="forbidden-footer-note">
+              🚚 Items forbidden to be carried by customers must be sent as <strong>Freight</strong>. Contact us for freight options.
+            </div>
+          </div>
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="submit-area">
+          <button type="submit" class="btn-submit" id="btnSubmit">
+            <span id="btnText">Submit Form ✓</span>
+            <div class="spinner" id="spinner"></div>
+          </button>
+          <div class="submit-note">By submitting this form, you agree to WonderOz JasTip's Terms &amp; Conditions.</div>
+        </div>
+
+      </form>
+
+      <div class="msg-box success" id="successBox">
+        <div class="icon">✅</div>
+        <h3>Form Successfully Submitted!</h3>
+        <p>Thank you! Your shipment details have been received.<br>The WonderOz JasTip team will contact you shortly to confirm your order.<br><br>Questions? <b>+6287722284847</b></p>
+        <button class="btn-back green-btn" onclick="resetForm()">Submit Another Form</button>
+      </div>
+
+      <div class="msg-box error" id="errorBox">
+        <div class="icon">❌</div>
+        <h3>Submission Failed</h3>
+        <p id="errorMsg">Something went wrong. Please try again or contact us at <b>+6287722284847</b></p>
+        <button class="btn-back red-btn" onclick="hideError()">Try Again</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="footer-section">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-col">
+        <a href="index.html" style="display:inline-block;line-height:0;">
+          <img src="logo.png" alt="WonderOz JasTip" style="height:80px;width:auto;margin-bottom:10px;display:block;">
+        </a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="footer-contact-list">
+          <a href="https://wa.me/6287722284847" target="_blank" class="footer-contact-link">
+            <span class="footer-contact-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="#25D366" style="vertical-align:middle;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></span>
+            <span>+62-877-222-84847</span>
+          </a>
+          <a href="mailto:Hello@WonderOzJasTip.Express" class="footer-contact-link">
+            <span class="footer-contact-icon">📧</span>
+            <span>Hello@WonderOzJasTip.Express</span>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="footer-contact-list">
+          <a href="index.html" class="footer-contact-link">Home</a>
+          <a href="our-service.html" class="footer-contact-link">Our Service</a>
+          <a href="how-it-works.html" class="footer-contact-link">How It Works</a>
+          <a href="shipping-rates.html" class="footer-contact-link">Shipping Rates</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <div class="social-row">
+          <a href="https://www.facebook.com/profile.php?id=61581247740932" target="_blank" class="social-btn s-fb" title="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/wonderoz.jastip" target="_blank" class="social-btn s-ig" title="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="#fff" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="#fff" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="#fff"/></svg>
+          </a>
+          <a href="http://www.tiktok.com/@WonderOz.JasTip" target="_blank" class="social-btn s-tt" title="TikTok">
+            <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.52V6.76a4.85 4.85 0 01-1.02-.07z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 WonderOz JasTip. All rights reserved.</span>
+      <span>WonderOz JasTip is a registered business name of Prayudhi Strategic Consulting Pty Ltd. <br class="footer-legal-break">ABN: <a href="https://abr.business.gov.au/ABN/View?abn=36675629071" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">36 675 629 071</a> | ACN: <a href="https://connectonline.asic.gov.au/RegistrySearch/faces/landing/bySearchId.jspx?searchIdType=BUSN&searchId=694757036" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">675 629 071</a></span>
+      <span><a href="privacy-policy.html">Privacy Policy</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// CONFIG
+// ============================================================
+// Order data is sent straight into Power Automate, which handles both the
+// Outlook email and the Excel/OneDrive write — see sendToPowerAutomate() below.
+
+// ============================================================
+// STATE
+// ============================================================
+let selectedCityFrom = '', selectedCityTo = '';
+let otherCityFrom = '', otherCityTo = '';
+let isOtherFrom = false, isOtherTo = false;
+let selectedKategori = '';
+let selectedRute = '';
+const ROUTE_LABELS = { 'JKT-SYD': 'Indonesia → Australia', 'SYD-JKT': 'Australia → Indonesia' };
+
+// ============================================================
+// HELPERS
+// ============================================================
+function showErr(id) { const el = document.getElementById(id); if (el) el.style.display = 'block'; }
+function hideErr(id) { const el = document.getElementById(id); if (el) el.style.display = 'none'; }
+function markField(id, err) { const el = document.getElementById(id); if (el) el.classList.toggle('field-err', err); }
+
+// ============================================================
+// SHIPPING ROUTE (explicit selection - source of truth for pricing)
+// ============================================================
+function pickRute(val, activeId, inactiveId) {
+  selectedRute = val;
+  document.getElementById(activeId).classList.add('sel-red');
+  document.getElementById(inactiveId).classList.remove('sel-red');
+  document.querySelectorAll('input[name="rute_pengiriman"]').forEach(r => r.checked = (r.value === val));
+  hideErr('err_rute');
+}
+
+// ============================================================
+// CUSTOMER TYPE
+// ============================================================
+function pickKategori(val, activeId, inactiveId) {
+  selectedKategori = val;
+  document.getElementById(activeId).classList.add('sel-red');
+  document.getElementById(inactiveId).classList.remove('sel-red');
+  document.querySelectorAll('input[name="kategori"]').forEach(r => r.checked = (r.value === val));
+  hideErr('err_kategori');
+  document.getElementById('newCustomerSection').classList.toggle('visible', val === 'New Customer');
+  document.getElementById('regularCustomerSection').classList.toggle('visible', val === 'Regular Customer');
+}
+
+// ============================================================
+// GET SENDER INFO
+// ============================================================
+function getSenderInfo() {
+  if (selectedKategori === 'New Customer') return {
+    name: document.getElementById('nama_pengirim').value.trim(),
+    phone: document.getElementById('telp_pengirim').value.trim(),
+    email: document.getElementById('email_pengirim').value.trim(),
+  };
+  return {
+    name: document.getElementById('nama_pengirim_regular').value.trim(),
+    phone: document.getElementById('telp_pengirim_regular').value.trim(),
+    email: document.getElementById('email_regular').value.trim(),
+  };
+}
+
+// ============================================================
+// CHECKBOX TOGGLES
+// ============================================================
+function toggleCheck(label) {
+  const cb = label.querySelector('input[type="checkbox"]');
+  if (cb) { label.classList.toggle('checked', cb.checked); hideErr('err_jenis_barang'); }
+}
+function toggleConfirm(label) {
+  const cb = label.querySelector('input[type="checkbox"]');
+  if (cb) { label.classList.toggle('checked', cb.checked); hideErr('err_konfirmasi'); }
+}
+
+// ============================================================
+// FORBIDDEN ITEMS MODAL
+// ============================================================
+var forbiddenModalOpened = false;
+
+function openForbiddenModal() {
+  forbiddenModalOpened = true;
+  var overlay = document.getElementById('forbiddenModalOverlay');
+  overlay.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+  hideErr('err_forbidden');
+  setTimeout(function() {
+    document.getElementById('btnForbiddenClose').focus();
+  }, 120);
+}
+
+function closeForbiddenModal(event, force) {
+  if (!force && event && event.target !== document.getElementById('forbiddenModalOverlay')) return;
+  var overlay = document.getElementById('forbiddenModalOverlay');
+  overlay.classList.remove('is-open');
+  document.body.style.overflow = '';
+  document.getElementById('btnForbiddenTrigger').focus();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var overlay = document.getElementById('forbiddenModalOverlay');
+    if (overlay && overlay.classList.contains('is-open')) {
+      closeForbiddenModal(null, true);
+    }
+  }
+});
+
+// ============================================================
+// VALIDATION
+// ============================================================
+function validate() {
+  let ok = true;
+  if (!selectedRute) { showErr('err_rute'); ok = false; } else hideErr('err_rute');
+  if (!selectedKategori) { showErr('err_kategori'); ok = false; } else hideErr('err_kategori');
+
+  const req = (id, errId) => {
+    const el = document.getElementById(id);
+    const empty = !el || !el.value.trim();
+    markField(id, empty);
+    if (empty) { showErr(errId); ok = false; } else { markField(id, false); hideErr(errId); }
+  };
+
+  if (selectedKategori === 'New Customer') {
+    req('nama_pengirim', 'err_nama_pengirim');
+    req('telp_pengirim', 'err_telp_pengirim');
+    const ep = document.getElementById('email_pengirim');
+    if (!ep.value.trim() || !/\S+@\S+\.\S+/.test(ep.value)) {
+      markField('email_pengirim', true); showErr('err_email_pengirim'); ok = false;
+    } else { markField('email_pengirim', false); hideErr('err_email_pengirim'); }
+  } else if (selectedKategori === 'Regular Customer') {
+    req('nama_pengirim_regular', 'err_nama_pengirim_regular');
+    req('telp_pengirim_regular', 'err_telp_pengirim_regular');
+    const er = document.getElementById('email_regular');
+    if (!er.value.trim() || !/\S+@\S+\.\S+/.test(er.value)) {
+      markField('email_regular', true); showErr('err_email_regular'); ok = false;
+    } else { markField('email_regular', false); hideErr('err_email_regular'); }
+  }
+
+  const reqR = (id, errId) => {
+    const el = document.getElementById(id);
+    const empty = !el || !el.value.trim();
+    markField(id, empty);
+    if (empty) { showErr(errId); ok = false; } else { markField(id, false); hideErr(errId); }
+  };
+  reqR('nama_penerima', 'err_nama_penerima');
+  reqR('telp_penerima', 'err_telp_penerima');
+  reqR('alamat_penerima', 'err_alamat_penerima');
+  reqR('deskripsi_barang', 'err_deskripsi_barang');
+
+  const ep2 = document.getElementById('email_penerima');
+  if (!ep2.value.trim() || !/\S+@\S+\.\S+/.test(ep2.value)) {
+    markField('email_penerima', true); showErr('err_email_penerima'); ok = false;
+  } else { markField('email_penerima', false); hideErr('err_email_penerima'); }
+
+  if (![...document.querySelectorAll('input[name="jenis_barang"]:checked')].length) {
+    showErr('err_jenis_barang'); ok = false;
+  } else hideErr('err_jenis_barang');
+
+  const allConfirm = document.querySelectorAll('input[name="konfirmasi"]');
+  const checkedConfirm = document.querySelectorAll('input[name="konfirmasi"]:checked');
+  if (checkedConfirm.length < allConfirm.length) { showErr('err_konfirmasi'); ok = false; }
+  else hideErr('err_konfirmasi');
+
+  if (!forbiddenModalOpened) { showErr('err_forbidden'); ok = false; }
+  else hideErr('err_forbidden');
+
+  return ok;
+}
+
+// ============================================================
+// SUBMIT
+// ============================================================
+document.getElementById('shipForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!validate()) {
+    document.querySelector('.err-msg[style*="block"]')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  const btn = document.getElementById('btnSubmit');
+  document.getElementById('btnText').textContent = 'Sending...';
+  document.getElementById('spinner').style.display = 'block';
+  btn.disabled = true;
+
+  const sender = getSenderInfo();
+  const routeStr = ROUTE_LABELS[selectedRute] || selectedRute;
+  const jenisList = [...document.querySelectorAll('input[name="jenis_barang"]:checked')].map(c => '• ' + c.value).join('\n');
+  const recipientName = document.getElementById('nama_penerima').value.trim();
+  const recipientPhone = document.getElementById('telp_penerima').value.trim();
+  const recipientEmail = document.getElementById('email_penerima').value.trim();
+  const recipientAddress = document.getElementById('alamat_penerima').value.trim();
+  const itemDescription = document.getElementById('deskripsi_barang').value.trim();
+
+  // ============================================================
+  // Power Automate webhook — the ONLY place this order gets sent.
+  // Field names below match the flow's "Request Body JSON Schema" EXACTLY
+  // (camelCase, no spaces) — the trigger reads them with
+  // triggerBody()?['fieldName'], so a mismatched name here means that
+  // variable comes through empty on the flow side.
+  // ============================================================
+  const POWER_AUTOMATE_WEBHOOK_URL = 'https://defaultad122ba14cbd4ad591a4dcf38620d6.68.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/04/workflows/a2579aadd6de4d12a13d5836ed48e5d2/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8ghjBbryJaFWSUNtAVMTX5JEjf47XJJtdCOYTXp7okI';
+
+  const itemCategoriesStr = jenisList || '(none selected)';
+
+  const webhookPayload = {
+    customerType: selectedKategori,
+    shippingRoute: routeStr,
+    // "What's in the box" summary — the form doesn't have a dedicated box-details
+    // field, so this reuses the item category checkboxes (closest match to what
+    // the flow's email body is meant to show here).
+    boxDetails: itemCategoriesStr,
+    senderName: sender.name,
+    senderPhone: sender.phone,
+    senderEmail: sender.email,
+    recipientName: recipientName,
+    recipientPhone: recipientPhone,
+    recipientEmail: recipientEmail,
+    recipientAddress: recipientAddress,
+    itemDescription: itemDescription,
+    itemCategory: itemCategoriesStr,
+    declaration: 'All 5 declaration statements confirmed ✓',
+  };
+
+  try {
+    // Standard 'cors' mode (not 'no-cors') with Content-Type: 'application/json' —
+    // Power Automate's trigger rejects anything else with a 400, as confirmed by
+    // testing (a 'text/plain' version of this call got 400 Bad Request even though
+    // the body was valid JSON). This does mean the browser sends a CORS preflight
+    // first; if that preflight isn't answered correctly, the browser will block the
+    // request and throw here — which is useful, since it means real failures now
+    // show up as an actual error instead of silently vanishing.
+    const response = await fetch(POWER_AUTOMATE_WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(webhookPayload),
+    });
+    if (!response.ok) {
+      throw new Error('Power Automate returned ' + response.status + ' ' + response.statusText);
+    }
+    document.getElementById('shipForm').style.display = 'none';
+    document.getElementById('successBox').style.display = 'block';
+    document.getElementById('successBox').scrollIntoView({ behavior: 'smooth' });
+  } catch (err) {
+    document.getElementById('errorMsg').innerHTML =
+      'Something went wrong. Please try again or contact us at <b>+6287722284847</b><br><small style="color:#999">Error: ' + (err.message || JSON.stringify(err)) + '</small>';
+    document.getElementById('errorBox').style.display = 'block';
+    document.getElementById('errorBox').scrollIntoView({ behavior: 'smooth' });
+  } finally {
+    document.getElementById('btnText').textContent = 'Submit Form ✓';
+    document.getElementById('spinner').style.display = 'none';
+    btn.disabled = false;
+  }
+});
+
+// NOTE: EmailJS and the old Google Apps Script integration have both been
+// removed. This form now sends orders exclusively to the Power Automate
+// webhook above, which is responsible for both the Outlook email and the
+// Excel/OneDrive write.
+
+// ============================================================
+// RESET
+// ============================================================
+function resetForm() {
+  document.getElementById('shipForm').reset();
+  document.getElementById('shipForm').style.display = 'block';
+  document.getElementById('successBox').style.display = 'none';
+  document.getElementById('errorBox').style.display = 'none';
+  selectedKategori = ''; selectedRute = ''; selectedCityFrom = ''; selectedCityTo = '';
+  isOtherFrom = false; isOtherTo = false; otherCityFrom = ''; otherCityTo = '';
+  forbiddenModalOpened = false;
+  hideErr('err_forbidden');
+  hideErr('err_rute');
+  ['rc_new','rc_regular','rc_route_idau','rc_route_auid'].forEach(id => document.getElementById(id).classList.remove('sel-red'));
+  document.querySelectorAll('.check-item,.confirm-item').forEach(el => el.classList.remove('checked'));
+  document.getElementById('newCustomerSection').classList.remove('visible');
+  document.getElementById('regularCustomerSection').classList.remove('visible');
+  setTimeout(() => { document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' }); }, 100);
+}
+
+function hideError() { document.getElementById('errorBox').style.display = 'none'; }
+
+function toggleMobileNav() {
+  const nav = document.getElementById('mainNav');
+  const btn = document.getElementById('navHamburger');
+  nav.classList.toggle('mobile-open');
+  btn.classList.toggle('open');
+}
+
+document.getElementById('mainNav').querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('mainNav').classList.remove('mobile-open');
+    document.getElementById('navHamburger').classList.remove('open');
+  });
+});
+</script>
+
+<!-- FLOATING WHATSAPP BUTTON (sticky, all pages) -->
+<a href="https://wa.me/6287722284847?text=Hi%20WonderOz%20JasTip." target="_blank" rel="noopener" class="whatsapp-fab" aria-label="Chat on WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+</body>
+</html>
